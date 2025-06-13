@@ -23,7 +23,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 				Recipe Collection
 			</Heading>
 			<SimpleGrid
-				columns={{ base: 1, md: 2, lg: 3 }}
+				columns={{ base: 1, md: 2, lg: 4 }}
 				spacing={{ base: 4, md: 6, lg: 8 }} // grid-gap
 			>
 				{data.hits.map((hit, index) => {
@@ -38,34 +38,72 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 
 					return (
 						<Box
+							as="article"
 							key={`${recipe.label}-${index}`} // no ID present in the API
-							border="none"
-							borderWidth="1px"
-							borderRadius="lg"
 							overflow="hidden"
+							borderRadius="lg"
 							bg="rgb(255, 223, 191)"
-							p={4}
+							p={2}
 							cursor="pointer"
-							// onClick={() => onSelectRecipe(recipe)}
-							transition="transform 0.2s ease-in-out"
+							onClick={() => onSelectRecipe(recipe)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter" || e.key === " ") {
+									e.preventDefault();
+									onSelectRecipe(recipe);
+								}
+							}}
+							role="button"
+							tabIndex={0}
+							aria-label={`Bekijk recept voor ${recipe.label}`}
+							transition="all 0.2s ease-in-out"
 							_hover={{
 								transform: "scale(1.02)",
+								shadow: "md",
+							}}
+							_focus={{
+								transform: "scale(1.02)",
+								shadow: "0 0 0 3px rgba(66, 153, 225, 0.6)",
+								outline: "none",
 							}}
 						>
 							<VStack
 								spacing={2}
-								align="start"
+								align="stretch"
 							>
 								<Image
 									src={recipe.image}
 									alt={recipe.label}
+									w="100%"
+									h="20rem"
 									objectFit="cover"
 									objectPosition="center"
-									boxSize="20rem"
-									borderRadius="md"
-									alignSelf="center"
+									borderTopRadius="lg"
 								/>
-								<Heading size="md">{recipe.label}</Heading>
+								<Text
+									textAlign="center"
+									w="100%"
+									color="gray.600"
+								>
+									{recipe.mealType}
+								</Text>
+								<Heading
+									size="md"
+									textAlign="center"
+									w="100%"
+								>
+									{recipe.label}
+								</Heading>
+								<Box>
+									<Text>
+										<Text
+											as="span"
+											fontWeight="bold"
+										>
+											Dish Type:{" "}
+										</Text>
+										{recipe.dishType}
+									</Text>
+								</Box>
 
 								{hasDietLabels && (
 									<Box>
@@ -108,15 +146,6 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 										</Flex>
 									</Box>
 								)}
-
-								<Box>
-									<Text>
-										<strong>Meal Type:</strong> {recipe.mealType}
-									</Text>
-									<Text>
-										<strong>Dish Type:</strong> {recipe.dishType}
-									</Text>
-								</Box>
 
 								<Flex
 									gap={2}
