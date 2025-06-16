@@ -6,7 +6,10 @@ export const App = () => {
 	const [selectedRecipe, setSelectedRecipe] = useState(null);
 
 	return selectedRecipe ? (
-		<RecipePage recipe={selectedRecipe} />
+		<RecipePage
+			recipe={selectedRecipe}
+			onBack={() => setSelectedRecipe(null)}
+		/>
 	) : (
 		<RecipeListPage onSelectRecipe={setSelectedRecipe} />
 	);
