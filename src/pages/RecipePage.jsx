@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
 	Box,
 	Heading,
@@ -49,6 +50,21 @@ export const RecipePage = ({ recipe, onBack }) => {
 		);
 	};
 
+	useEffect(() => {
+		const handleKeyDown = (e) => {
+			if (e.key === "Backspace") {
+				e.preventDefault();
+				onBack();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [onBack]);
+
 	return (
 		<Box
 			p={8}
@@ -60,6 +76,9 @@ export const RecipePage = ({ recipe, onBack }) => {
 				onClick={onBack}
 				mb={6}
 				colorScheme="orange"
+				role="button"
+				tabIndex={0}
+				aria-label="Back to recipes"
 			>
 				Back to recipes
 			</Button>
