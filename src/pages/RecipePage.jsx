@@ -10,6 +10,7 @@ import {
 	Flex,
 	Tag,
 	Divider,
+	SimpleGrid,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, TimeIcon } from "@chakra-ui/icons";
 
@@ -40,7 +41,6 @@ export const RecipePage = ({ recipe, onBack }) => {
 				w="100%"
 				display="flex"
 				justifyContent="space-between"
-				py={1}
 			>
 				<Text>{label}:</Text>
 				<Text fontWeight="bold">
@@ -50,6 +50,12 @@ export const RecipePage = ({ recipe, onBack }) => {
 		);
 	};
 
+	// Scroll to top of page when using keyboard navigation
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	// Handle backspace key to navigate back
 	useEffect(() => {
 		const handleKeyDown = (e) => {
 			if (e.key === "Backspace") {
@@ -67,66 +73,77 @@ export const RecipePage = ({ recipe, onBack }) => {
 
 	return (
 		<Box
+			position="relative"
+			w="100%"
 			p={8}
 			bg="rgb(244, 171, 106)"
 			minH="100vh"
 		>
 			<Button
+				position="absolute"
+				top={8}
+				left={8}
 				leftIcon={<ArrowBackIcon />}
 				onClick={onBack}
-				mb={6}
 				colorScheme="orange"
 				role="button"
 				tabIndex={0}
+				zIndex={1}
 				aria-label="Back to recipes"
 			>
 				Back to recipes
 			</Button>
 
 			<VStack
-				spacing={6}
-				maxW="1200px"
+				spacing={3}
+				maxW="75rem"
 				mx="auto"
 			>
-				{/* Recipe Image */}
 				<Image
 					src={image}
 					alt={label}
 					borderRadius="lg"
 					objectFit="cover"
 					w="100%"
-					maxH="400px"
+					maxH="20rem"
 				/>
 
-				{/* Two Column Layout */}
-				<Flex
-					direction={["column", "row"]}
-					gap={8}
+				{/* Grid Layout */}
+				<SimpleGrid
+					columns={{ base: 1, md: 2 }}
+					gap={3}
 					w="100%"
-					bg="white"
-					p={6}
+					bg="rgb(255, 223, 191)"
+					p={4}
 					borderRadius="lg"
 					boxShadow="md"
 				>
 					{/* Left Column */}
-					<Box flex={1}>
+					<Box>
 						<VStack
 							align="start"
 							spacing={4}
 						>
 							<Box>
-								<Text
-									color="gray.600"
-									fontSize="lg"
-								>
-									{mealType} {dishType}
-								</Text>
 								<Heading
-									size="xl"
+									size="lg"
 									mb={2}
 								>
 									{label}
 								</Heading>
+								<Text
+									color="gray.600"
+									fontSize="sm"
+								>
+									{mealType}
+								</Text>
+								<Text
+									color="gray.600"
+									fontSize="lg"
+									mb={1}
+								>
+									{dishType}
+								</Text>
 
 								<HStack>
 									<TimeIcon />
@@ -140,14 +157,11 @@ export const RecipePage = ({ recipe, onBack }) => {
 							<Box w="100%">
 								<Heading
 									size="md"
-									mb={4}
+									mb={2}
 								>
 									Ingredients
 								</Heading>
-								<VStack
-									align="start"
-									spacing={2}
-								>
+								<VStack align="start">
 									{ingredients.map((ingredient, index) => (
 										<Text key={index}>• {ingredient.text}</Text>
 									))}
@@ -157,11 +171,8 @@ export const RecipePage = ({ recipe, onBack }) => {
 					</Box>
 
 					{/* Right Column */}
-					<Box flex={1}>
-						<VStack
-							align="start"
-							spacing={4}
-						>
+					<Box>
+						<VStack align="start">
 							{/* Diet Labels */}
 							{dietLabels.length > 0 && (
 								<Box w="100%">
@@ -264,7 +275,7 @@ export const RecipePage = ({ recipe, onBack }) => {
 							</Box>
 						</VStack>
 					</Box>
-				</Flex>
+				</SimpleGrid>
 			</VStack>
 		</Box>
 	);
