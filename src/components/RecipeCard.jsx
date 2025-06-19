@@ -18,6 +18,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 	return (
 		<Box
 			as="article"
+			role="article"
 			overflow="hidden"
 			borderRadius="lg"
 			bg="rgb(255, 223, 191)"
@@ -25,7 +26,6 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 			cursor="pointer"
 			onClick={() => onSelectRecipe(recipe)}
 			onKeyDown={handleKeyDown}
-			role="button"
 			tabIndex={0}
 			aria-label={`View recipe for ${recipe.label}`}
 			transition="all 0.2s ease-in-out"
