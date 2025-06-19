@@ -1,3 +1,4 @@
+// uses default export to work with lazy loading
 import { useEffect } from "react";
 import {
 	Box,
@@ -11,10 +12,13 @@ import {
 	Tag,
 	Divider,
 	SimpleGrid,
+	Skeleton,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, TimeIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
-export const RecipePage = ({ recipe, onBack }) => {
+const RecipePage = ({ recipe, onBack }) => {
+	const [imageLoaded, setImageLoaded] = useState(false);
 	if (!recipe) return null;
 
 	const {
@@ -99,14 +103,34 @@ export const RecipePage = ({ recipe, onBack }) => {
 				maxW="75rem"
 				mx="auto"
 			>
-				<Image
-					src={image}
-					alt={label}
-					borderRadius="lg"
-					objectFit="cover"
+				<Box
+					position="relative"
 					w="100%"
-					maxH="20rem"
-				/>
+					h="15rem"
+					borderRadius="lg"
+					overflow="hidden"
+				>
+					<Skeleton
+						isLoaded={imageLoaded}
+						width="100%"
+						height="100%"
+						position="absolute"
+						top={0}
+						left={0}
+					/>
+					<Image
+						src={image}
+						alt={label}
+						w="100%"
+						h="100%"
+						objectFit="cover"
+						objectPosition="center"
+						borderRadius="lg"
+						onLoad={() => setImageLoaded(true)}
+						opacity={imageLoaded ? 1 : 0}
+						transition="opacity 0.3s ease-in-out"
+					/>
+				</Box>
 
 				{/* Grid Layout */}
 				<SimpleGrid
@@ -280,3 +304,5 @@ export const RecipePage = ({ recipe, onBack }) => {
 		</Box>
 	);
 };
+
+export default RecipePage;

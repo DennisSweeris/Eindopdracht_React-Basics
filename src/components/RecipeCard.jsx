@@ -1,12 +1,17 @@
-import { Box, VStack, HStack, Image, Text, Heading, Tag, Flex } from "@chakra-ui/react";
+import { Box, VStack, HStack, Image, Text, Heading, Tag, Flex, Skeleton } from "@chakra-ui/react";
+import { useState } from "react";
 
 export const RecipeCard = ({ recipe, onSelectRecipe }) => {
-	const hasDietLabels = recipe.dietLabels?.length > 0;
-	const hasCautions = recipe.cautions?.length > 0;
-	const isVegan = recipe.healthLabels?.includes("Vegan");
-	const isVegetarian = recipe.healthLabels?.includes("Vegetarian");
-	const isGlutenFree = recipe.healthLabels?.includes("Gluten-Free");
-	const isDairyFree = recipe.healthLabels?.includes("Dairy-Free");
+	const [imageLoaded, setImageLoaded] = useState(false);
+
+	const { image, label, mealType, dishType, dietLabels, cautions, healthLabels } = recipe;
+
+	const hasDietLabels = dietLabels?.length > 0;
+	const hasCautions = cautions?.length > 0;
+	const isVegan = healthLabels?.includes("Vegan");
+	const isVegetarian = healthLabels?.includes("Vegetarian");
+	const isGlutenFree = healthLabels?.includes("Gluten-Free");
+	const isDairyFree = healthLabels?.includes("Dairy-Free");
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" || e.key === " ") {
@@ -27,7 +32,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 			onClick={() => onSelectRecipe(recipe)}
 			onKeyDown={handleKeyDown}
 			tabIndex={0}
-			aria-label={`View recipe for ${recipe.label}`}
+			aria-label={`View recipe for ${label}`}
 			transition="all 0.2s ease-in-out"
 			_hover={{
 				transform: "scale(1.02)",
@@ -43,26 +48,46 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 				spacing={2}
 				align="stretch"
 			>
-				<Image
-					src={recipe.image}
-					alt={recipe.label}
+				<Box
+					position="relative"
 					w="100%"
 					h="15rem"
-					objectFit="cover"
-					objectPosition="center"
 					borderRadius="lg"
-				/>
+					overflow="hidden"
+				>
+					<Skeleton
+						isLoaded={imageLoaded}
+						width="100%"
+						height="100%"
+						position="absolute"
+						top={0}
+						left={0}
+					/>
+					<Image
+						src={image}
+						alt={label}
+						w="100%"
+						h="100%"
+						objectFit="cover"
+						objectPosition="center"
+						borderRadius="lg"
+						loading="lazy"
+						onLoad={() => setImageLoaded(true)}
+						opacity={imageLoaded ? 1 : 0}
+						transition="opacity 0.3s ease-in-out"
+					/>
+				</Box>
 				<HStack
 					justifyContent="center"
 					wrap="wrap"
 					spacing={2}
 					textAlign="center"
 				>
-					{recipe.mealType.map((mealType, index) => (
+					{mealType.map((mealType, index) => (
 						<Text
 							color="gray.600"
 							key={index}
-							_after={index < recipe.mealType.length - 1 ? { content: `","` } : null}
+							_after={index < mealType.length - 1 ? { content: `","` } : null}
 						>
 							{mealType}
 						</Text>
@@ -72,7 +97,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					size="md"
 					textAlign="center"
 				>
-					{recipe.label}
+					{label}
 				</Heading>
 				<HStack>
 					<Text
@@ -82,7 +107,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					>
 						Dish Type:
 					</Text>
-					{recipe.dishType.map((dishType, index) => (
+					{dishType.map((dishType, index) => (
 						<Text key={index}>{dishType}</Text>
 					))}
 				</HStack>
@@ -100,7 +125,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 							flexWrap="wrap"
 							mt={1}
 						>
-							{recipe.dietLabels.map((label, index) => (
+							{dietLabels.map((label, index) => (
 								<Tag
 									key={index}
 									colorScheme="blue"
@@ -126,7 +151,7 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 							flexWrap="wrap"
 							mt={1}
 						>
-							{recipe.cautions.map((caution, index) => (
+							{cautions.map((caution, index) => (
 								<Tag
 									key={index}
 									colorScheme="red"
