@@ -57,11 +57,9 @@ export const DietFilter = ({ activeFilters = [], onFilterChange }) => {
 		<Box>
 			{/* Dropdown to add more filters */}
 			<Box
-				width="100%"
 				mb={4}
 				display="flex"
-				justifyContent="center"
-			>
+				justifyContent="center">
 				<Select
 					placeholder="Add diet filter..."
 					size="sm"
@@ -71,15 +69,13 @@ export const DietFilter = ({ activeFilters = [], onFilterChange }) => {
 					variant="outline"
 					title="Add diet filter"
 					aria-label="Add diet filter"
-					_hover={{ cursor: "pointer", borderColor: "blue.500" }}
-				>
+					_hover={{ cursor: "pointer", borderColor: "blue.500" }}>
 					{allHealthLabels
 						.filter((label) => !activeFilters.includes(label))
 						.map((label) => (
 							<option
 								key={label}
-								value={label}
-							>
+								value={label}>
 								{label}
 							</option>
 						))}
@@ -91,8 +87,7 @@ export const DietFilter = ({ activeFilters = [], onFilterChange }) => {
 				spacing={2}
 				flexWrap="wrap"
 				gap={2}
-				justifyContent="center"
-			>
+				justifyContent="center">
 				{allDisplayedDiets.map((diet) => {
 					const isActive = activeFilters.includes(diet);
 					return (
@@ -109,8 +104,7 @@ export const DietFilter = ({ activeFilters = [], onFilterChange }) => {
 							aria-label={`Filter by ${diet}`}
 							transition="all 0.2s ease-in-out"
 							boxShadow="md"
-							_hover={{ opacity: isActive ? 1 : 0.8, transform: "translateY(-2px)" }}
-						>
+							_hover={{ opacity: isActive ? 1 : 0.8, transform: "translateY(-2px)" }}>
 							<TagLabel>{diet}</TagLabel>
 							{isActive && (
 								<TagCloseButton

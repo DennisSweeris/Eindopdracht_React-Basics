@@ -9,19 +9,20 @@ export const App = () => {
 	const [selectedRecipe, setSelectedRecipe] = useState(null);
 
 	return (
-		<Box minH="100vh">
+		<Box
+			minH="100vh"
+			minW="320px">
+			{/* minW is for mobile devices */}
 			<Suspense
 				fallback={
 					<Box
 						display="flex"
 						justifyContent="center"
 						alignItems="center"
-						h="100vh"
-					>
+						h="100vh">
 						<Spinner size="xl" />
 					</Box>
-				}
-			>
+				}>
 				{selectedRecipe ? (
 					<RecipePage
 						recipe={selectedRecipe}

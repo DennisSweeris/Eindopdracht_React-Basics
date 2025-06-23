@@ -26,17 +26,14 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 	return (
 		<Box
 			p={8}
-			bg="rgb(244, 171, 106)"
-		>
+			bg="rgb(244, 171, 106)">
 			<VStack
 				spacing={6}
 				maxW="75rem"
-				mx="auto"
-			>
+				mx="auto">
 				<Heading
 					mb={8}
-					textAlign="center"
-				>
+					textAlign="center">
 					Recipe Collection
 				</Heading>
 
@@ -51,8 +48,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 
 				<SimpleGrid
 					columns={{ base: 1, md: 2, lg: 5 }}
-					spacing={{ base: 3, md: 4, lg: 5 }}
-				>
+					spacing={{ base: 3, md: 4, lg: 5 }}>
 					{filteredRecipes.length > 0 ? (
 						filteredRecipes.map(({ recipe }, index) => (
 							<RecipeCard
@@ -64,8 +60,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 					) : (
 						<Box
 							gridColumn="1 / -1"
-							textAlign="center"
-						>
+							textAlign="center">
 							<Text fontSize="xl">No recipes found</Text>
 						</Box>
 					)}

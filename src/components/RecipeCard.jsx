@@ -42,19 +42,15 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 				transform: "scale(1.02)",
 				shadow: "0 0 0 3px rgba(66, 153, 225, 0.6)",
 				outline: "none",
-			}}
-		>
+			}}>
 			<VStack
 				spacing={2}
-				align="stretch"
-			>
+				align="stretch">
 				<Box
 					position="relative"
-					w="100%"
 					h="15rem"
 					borderRadius="lg"
-					overflow="hidden"
-				>
+					overflow="hidden">
 					<Skeleton
 						isLoaded={imageLoaded}
 						width="100%"
@@ -81,30 +77,26 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					justifyContent="center"
 					wrap="wrap"
 					spacing={2}
-					textAlign="center"
-				>
+					textAlign="center">
 					{mealType.map((mealType, index) => (
 						<Text
 							color="gray.600"
 							key={index}
-							_after={index < mealType.length - 1 ? { content: `","` } : null}
-						>
+							_after={index < mealType.length - 1 ? { content: `","` } : null}>
 							{mealType}
 						</Text>
 					))}
 				</HStack>
 				<Heading
 					size="md"
-					textAlign="center"
-				>
+					textAlign="center">
 					{label}
 				</Heading>
 				<HStack>
 					<Text
 						as="span"
 						fontWeight="bold"
-						fontSize="xs"
-					>
+						fontSize="xs">
 						Dish Type:
 					</Text>
 					{dishType.map((dishType, index) => (
@@ -116,21 +108,18 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					<Box>
 						<Text
 							fontWeight="bold"
-							fontSize="xs"
-						>
+							fontSize="xs">
 							Diet:
 						</Text>
 						<Flex
 							gap={2}
 							flexWrap="wrap"
-							mt={1}
-						>
+							mt={1}>
 							{dietLabels.map((label, index) => (
 								<Tag
 									key={index}
 									colorScheme="blue"
-									size="sm"
-								>
+									size="sm">
 									{label}
 								</Tag>
 							))}
@@ -142,21 +131,18 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					<Box>
 						<Text
 							fontWeight="bold"
-							fontSize="xs"
-						>
+							fontSize="xs">
 							Cautions:
 						</Text>
 						<Flex
 							gap={2}
 							flexWrap="wrap"
-							mt={1}
-						>
+							mt={1}>
 							{cautions.map((caution, index) => (
 								<Tag
 									key={index}
 									colorScheme="red"
-									size="sm"
-								>
+									size="sm">
 									{caution}
 								</Tag>
 							))}
@@ -168,15 +154,13 @@ export const RecipeCard = ({ recipe, onSelectRecipe }) => {
 					<>
 						<Text
 							fontWeight="bold"
-							fontSize="xs"
-						>
+							fontSize="xs">
 							Health Labels:
 						</Text>
 						<Flex
 							gap={2}
 							flexWrap="wrap"
-							mt={2}
-						>
+							mt={2}>
 							{isVegan && <Tag colorScheme="green">Vegan</Tag>}
 							{isVegetarian && <Tag colorScheme="teal">Vegetarian</Tag>}
 							{isGlutenFree && <Tag colorScheme="orange">Gluten-Free</Tag>}

@@ -42,10 +42,8 @@ const RecipePage = ({ recipe, onBack }) => {
 		return (
 			<Box
 				key={key}
-				w="100%"
 				display="flex"
-				justifyContent="space-between"
-			>
+				justifyContent="space-between">
 				<Text>{label}:</Text>
 				<Text fontWeight="bold">
 					{Math.round(nutrient.quantity)} {nutrient.unit}
@@ -78,11 +76,9 @@ const RecipePage = ({ recipe, onBack }) => {
 	return (
 		<Box
 			position="relative"
-			w="100%"
 			p={8}
 			bg="rgb(244, 171, 106)"
-			minH="100vh"
-		>
+			minH="100vh">
 			<Button
 				position="absolute"
 				top={8}
@@ -93,23 +89,20 @@ const RecipePage = ({ recipe, onBack }) => {
 				role="button"
 				tabIndex={0}
 				zIndex={1}
-				aria-label="Back to recipes"
-			>
+				aria-label="Back to recipes">
 				Back to recipes
 			</Button>
 
 			<VStack
 				spacing={3}
 				maxW="75rem"
-				mx="auto"
-			>
+				mx="auto">
 				<Box
 					position="relative"
-					w="100%"
 					h="15rem"
+					w="100%"
 					borderRadius="lg"
-					overflow="hidden"
-				>
+					overflow="hidden">
 					<Skeleton
 						isLoaded={imageLoaded}
 						width="100%"
@@ -136,53 +129,46 @@ const RecipePage = ({ recipe, onBack }) => {
 				<SimpleGrid
 					columns={{ base: 1, md: 2 }}
 					gap={3}
-					w="100%"
 					bg="rgb(255, 223, 191)"
 					p={4}
 					borderRadius="lg"
-					boxShadow="md"
-				>
+					boxShadow="md">
 					{/* Left Column */}
 					<Box>
 						<VStack
 							align="start"
-							spacing={4}
-						>
+							spacing={4}>
 							<Box>
 								<Heading
 									size="lg"
-									mb={2}
-								>
+									mb={2}>
 									{label}
 								</Heading>
 								<Text
 									color="gray.600"
-									fontSize="sm"
-								>
+									fontSize="sm">
 									{mealType}
 								</Text>
 								<Text
 									color="gray.600"
 									fontSize="lg"
-									mb={1}
-								>
+									mb={1}>
 									{dishType}
 								</Text>
 
 								<HStack>
 									<TimeIcon />
-									<Text>{totalTime} minutes</Text>
+									<Text>{totalTime > 0 ? `${totalTime} minutes` : "N/A"}</Text>
 								</HStack>
 								<Text>Servings: {servings}</Text>
 							</Box>
 
 							<Divider my={2} />
 
-							<Box w="100%">
+							<Box>
 								<Heading
 									size="md"
-									mb={2}
-								>
+									mb={2}>
 									Ingredients
 								</Heading>
 								<VStack align="start">
@@ -199,22 +185,19 @@ const RecipePage = ({ recipe, onBack }) => {
 						<VStack align="start">
 							{/* Diet Labels */}
 							{dietLabels.length > 0 && (
-								<Box w="100%">
+								<Box>
 									<Text
 										fontWeight="bold"
-										mb={2}
-									>
+										mb={2}>
 										Diet Labels:
 									</Text>
 									<Flex
 										gap={2}
-										wrap="wrap"
-									>
+										wrap="wrap">
 										{dietLabels.map((label, index) => (
 											<Tag
 												key={index}
-												colorScheme="blue"
-											>
+												colorScheme="blue">
 												{label}
 											</Tag>
 										))}
@@ -224,23 +207,20 @@ const RecipePage = ({ recipe, onBack }) => {
 
 							{/* Health Labels */}
 							{healthLabels.length > 0 && (
-								<Box w="100%">
+								<Box>
 									<Text
 										fontWeight="bold"
-										mb={2}
-									>
+										mb={2}>
 										Health Labels:
 									</Text>
 									<Flex
 										gap={2}
-										wrap="wrap"
-									>
+										wrap="wrap">
 										{healthLabels.slice(0, 10).map((label, index) => (
 											<Tag
 												key={index}
 												colorScheme="green"
-												size="sm"
-											>
+												size="sm">
 												{label}
 											</Tag>
 										))}
@@ -250,23 +230,20 @@ const RecipePage = ({ recipe, onBack }) => {
 
 							{/* Cautions */}
 							{cautions.length > 0 && (
-								<Box w="100%">
+								<Box>
 									<Text
 										fontWeight="bold"
-										mb={2}
-									>
+										mb={2}>
 										Cautions:
 									</Text>
 									<Flex
 										gap={2}
-										wrap="wrap"
-									>
+										wrap="wrap">
 										{cautions.map((caution, index) => (
 											<Tag
 												key={index}
 												colorScheme="red"
-												size="sm"
-											>
+												size="sm">
 												{caution}
 											</Tag>
 										))}
@@ -275,20 +252,15 @@ const RecipePage = ({ recipe, onBack }) => {
 							)}
 
 							{/* Nutrition Facts */}
-							<Box
-								w="100%"
-								pt={4}
-							>
+							<Box pt={4}>
 								<Text
 									fontWeight="bold"
-									mb={2}
-								>
+									mb={2}>
 									Nutrition Facts (per serving):
 								</Text>
 								<VStack
 									align="stretch"
-									spacing={1}
-								>
+									spacing={1}>
 									{getNutrient("ENERC_KCAL", "Energy")}
 									{getNutrient("PROCNT", "Protein")}
 									{getNutrient("FAT", "Total Fat")}
